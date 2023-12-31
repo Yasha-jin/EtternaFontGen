@@ -5,7 +5,7 @@ extends Node
 const api_endpoint = "https://api.github.com/repos/Yasha-jin/EtternaFontGen/releases"
 
 # Update before creating release
-const version_tag = "0.1"
+const version_tag = "1.0"
 
 # Initialized to the release list page as a fallback in case it fails to 
 # get the link to the latest release for some reason
@@ -15,7 +15,7 @@ var download_url = "https://github.com/Yasha-jin/EtternaFontGen/releases/"
 signal update_available
 
 func _ready():
-	if OS.is_debug_build():
+	if !OS.is_debug_build():
 		var http = HTTPRequest.new()
 		add_child(http)
 		http.connect("request_completed", Callable(self, "_on_request_completed"))
