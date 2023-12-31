@@ -1,0 +1,270 @@
+[gd_scene load_steps=12 format=3 uid="uid://bndmg7rj3og82"]
+
+[ext_resource type="Script" path="res://Program.gd" id="1_ctdou"]
+[ext_resource type="FontFile" uid="uid://cyioj8ywcj50f" path="res://Fonts/Inter-Bold.ttf" id="2_8v2ex"]
+[ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_ly8ot"]
+[ext_resource type="FontFile" uid="uid://b8xiqderiq8bs" path="res://Fonts/Inter-Regular.ttf" id="3_i051u"]
+[ext_resource type="Texture2D" uid="uid://bk7yafrbh2bim" path="res://Textures/Folder icon.png" id="4_ofhlr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l72qy"]
+bg_color = Color(0.258824, 0.239216, 0.301961, 0.501961)
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xghq"]
+content_margin_left = 8.0
+content_margin_right = 21.0
+bg_color = Color(0.168627, 0.156863, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mk6n4"]
+bg_color = Color(0.168627, 0.156863, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id5pq"]
+bg_color = Color(0.168627, 0.156863, 0.2, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2g52"]
+bg_color = Color(0.0431373, 0.733333, 0.556863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo0mo"]
+bg_color = Color(0.0431373, 0.733333, 0.556863, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Program" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = 42.0
+offset_right = -42.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ctdou")
+metadata/_edit_lock_ = true
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Interface"]
+layout_mode = 1
+offset_left = -2.0
+offset_right = 467.0
+offset_bottom = 52.0
+theme_override_fonts/font = ExtResource("2_8v2ex")
+theme_override_font_sizes/font_size = 42
+text = "Etterna Font Generator"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Version" type="LinkButton" parent="Interface"]
+layout_mode = 1
+offset_top = 52.0
+offset_right = 72.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("3_i051u")
+theme_override_font_sizes/font_size = 14
+text = "Version 1.0"
+underline = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 104.0
+offset_bottom = 204.0
+grow_horizontal = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Interface/VBoxContainer"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Fonts" type="OptionButton" parent="Interface/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="FontSize" type="SpinBox" parent="Interface/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 8.0
+max_value = 256.0
+value = 8.0
+rounded = true
+alignment = 1
+
+[node name="ColorRect" type="Panel" parent="Interface/VBoxContainer/HBoxContainer6/FontSize"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l72qy")
+
+[node name="HBoxContainer2" type="Control" parent="Interface/VBoxContainer"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="FontName" type="LineEdit" parent="Interface/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -19.0
+offset_right = 320.0
+offset_bottom = 19.0
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_7xghq")
+placeholder_text = "Custom name(optional)"
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -178.0
+offset_top = -12.5
+offset_right = -80.0
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Doubleres"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Doubleres" type="CheckButton" parent="Interface/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+button_pressed = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 285.0
+offset_bottom = 323.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="OutputButton" type="Button" parent="Interface/HBoxContainer"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_mk6n4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_id5pq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_id5pq")
+icon = ExtResource("4_ofhlr")
+icon_alignment = 1
+
+[node name="GenerateButton" type="Button" parent="Interface/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_8v2ex")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_d2g52")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uo0mo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uo0mo")
+text = "Generate"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_group_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Interface/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+max_value = 51.0
+step = 1.0
+show_percentage = false
+
+[node name="Process" type="Label" parent="Interface/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_i051u")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+script = ExtResource("2_ly8ot")
+
+[node name="World" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="item_selected" from="Interface/VBoxContainer/HBoxContainer6/Fonts" to="." method="_on_fonts_item_selected"]
+[connection signal="value_changed" from="Interface/VBoxContainer/HBoxContainer6/FontSize" to="." method="_on_font_size_value_changed"]
+[connection signal="text_changed" from="Interface/VBoxContainer/HBoxContainer2/FontName" to="." method="_on_font_name_text_changed"]
+[connection signal="toggled" from="Interface/VBoxContainer/HBoxContainer2/Doubleres" to="." method="_on_doubleres_toggled"]
+[connection signal="pressed" from="Interface/HBoxContainer/OutputButton" to="." method="_on_output_button_pressed"]
+[connection signal="pressed" from="Interface/HBoxContainer/GenerateButton" to="." method="_on_generate_pressed"]
+[connection signal="error" from="SubViewport" to="." method="_on_sub_viewport_error"]
+[connection signal="set_current_step" from="SubViewport" to="." method="_on_sub_viewport_set_current_step"]
+[connection signal="set_max_step" from="SubViewport" to="." method="_on_sub_viewport_set_max_step"]

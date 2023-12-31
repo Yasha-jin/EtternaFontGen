@@ -1,0 +1,48 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="EtternaFontGen"
+run/main_scene="res://Program.tscn"
+config/project_settings_override="user://custom_settings.cfg"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+run/low_processor_mode=true
+boot_splash/bg_color=Color(0.0823529, 0.0745098, 0.0980392, 1)
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[autoload]
+
+Version="*res://Version.gd"
+
+[debug]
+
+file_logging/enable_file_logging.pc=false
+
+[display]
+
+window/size/viewport_width=600
+window/size/viewport_height=480
+window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom="res://default_theme.tres"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+shader_compiler/shader_cache/enabled=false
+shader_compiler/shader_cache/compress=false
+shader_compiler/shader_cache/use_zstd_compression=false
+environment/defaults/default_clear_color=Color(0.0823529, 0.0745098, 0.0980392, 1)
