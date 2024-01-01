@@ -1,6 +1,8 @@
 # EtternaFontGen
 Generate font for [Etterna](https://etternaonline.com/) with this new simple plug-n-play font generator !
 
+https://github.com/Yasha-jin/EtternaFontGen/assets/68703144/372639cd-cc2c-4d1a-8c4f-508cfba2ba7a
+
 ## Download
 Get the latest release by clicking => [Here](https://github.com/Yasha-jin/EtternaFontGen/releases/latest) <=
 
