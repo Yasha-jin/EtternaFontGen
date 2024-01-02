@@ -1128,17 +1128,15 @@ func start_render(
 	var true_height: int = height_finder.size.y + border_fix
 	height_finder.queue_free()
 	
-	var baseline:int = font_size
-	var top: int = border_fix
+	var top: int = true_height - (font_size + (border_fix / 2))
+	
 	if doubleres:
-		top /= 2
-	else:
-		baseline += ceil(float(border_fix) / 4)
+		top = (true_height / 2) - (font_size + (border_fix / 2))
 	
 	ini_contents.append("[common]\n")
-	ini_contents.append("Baseline=" + str(baseline) + "\n")
+	ini_contents.append("Baseline=" + str(font_size) + "\n")
 	ini_contents.append("Top=" + str(top) + "\n")
-	ini_contents.append("LineSpacing=" + str(baseline) + "\n")
+	ini_contents.append("LineSpacing=" + str(font_size) + "\n")
 	ini_contents.append("DrawExtraPixelsLeft=0\n")
 	ini_contents.append("DrawExtraPixelsRight=0\n")
 	ini_contents.append("AdvanceExtraPixels=0\n\n")
@@ -1147,8 +1145,8 @@ func start_render(
 		current_step += 1
 		emit_signal("set_current_step", current_step, steps[current_step])
 		# use this to test a single section
-#		if section != "symbol2":
-#			continue
+		#if section != "basic-latin":
+			#continue
 		
 		if doubleres:
 			font_size *= 2
