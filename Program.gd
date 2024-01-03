@@ -40,6 +40,8 @@ func _ready() -> void:
 	$Interface/Version.uri = Version.download_url
 	Version.connect("update_available", Callable(self, "update_version_label"))
 	
+	#Formatter.format()
+	
 #	get_viewport().files_dropped.connect(on_files_dropped)
 	fill_font_dropdown()
 	delete_shader_cache()
@@ -148,6 +150,7 @@ func _on_sub_viewport_set_current_step(step: int, step_name: String) -> void:
 
 func _on_sub_viewport_set_max_step(max_step: int) -> void:
 	max_steps = max_step
+	progress_bar.max_value = max_step
 
 
 func _on_generate_pressed() -> void:
