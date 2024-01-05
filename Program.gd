@@ -41,6 +41,7 @@ func _ready() -> void:
 	Version.connect("update_available", Callable(self, "update_version_label"))
 	
 	#Formatter.format()
+	Sections.initialize_custom_sheets()
 	
 #	get_viewport().files_dropped.connect(on_files_dropped)
 	fill_font_dropdown()

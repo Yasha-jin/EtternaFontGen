@@ -434,7 +434,82 @@ static var data: Dictionary = {
 		"Line 6" = "깡천림홍석악전반",
 		"Line 7" = "채",
 	},
+	"fallback-misc" : {
+		"Line 0" = "☆★♥♡Ω",
+		"Line 1" = "←↑→↓☺Σ∠Δ",
+		"Line 2" = "♩♪♫♬♭♮♯",
+	},
 	"EFG-KR": {
 		"Line 0" = "람장적월",
 	}
 }
+
+static func initialize_custom_sheets() -> void:
+	var path: String = ProjectSettings.globalize_path("user://CustomSheets")
+	if not DirAccess.dir_exists_absolute(path):
+		var _dir := DirAccess.open("user://")
+		_dir.make_dir("CustomSheets")
+	
+	if not OS.has_feature("editor"):
+		if not FileAccess.file_exists(path + "/_chinese.ini") and not FileAccess.file_exists(path + "/chinese.ini"):
+			var input := FileAccess.open("res://CustomSheets/chinese.ini", FileAccess.READ)
+			var output := FileAccess.open(path + "/_chinese.ini", FileAccess.WRITE)
+			output.store_string(input.get_as_text())
+		
+		if not FileAccess.file_exists(path + "/_korean.ini") and not FileAccess.file_exists(path + "/korean.ini"):
+			var input := FileAccess.open("res://CustomSheets/korean.ini", FileAccess.READ)
+			var output := FileAccess.open(path + "/_korean.ini", FileAccess.WRITE)
+			output.store_string(input.get_as_text())
+	
+	var dir = DirAccess.open(path)
+	for file: String in dir.get_files():
+		if file.get_extension() == "ini":
+			if file[0] != "_":
+				# Go for a manual approach, i tried to use the ConfigFile class,
+				# but it get a parsing error, i suppose due to weird character.
+				var ini := FileAccess.open(path + "/" + file, FileAccess.READ)
+				var section: String = ""
+				var _data: PackedStringArray = []
+				
+				while not ini.eof_reached():
+					var line: String = ini.get_line()
+					if line == "":
+						continue
+					
+					# Start new section
+					if line[0] == "[" and line[line.length() - 1] == "]":
+						if section != "":
+							var cur_line: int = 0
+							var line_text: String = "Line "
+							
+							for _line in _data:
+								if _data.size() >= 10 and cur_line < 10:
+									line_text = "Line  "
+								else:
+									line_text = "Line "
+								data[section].keys().append(line_text + str(cur_line))
+								data[section][line_text + str(cur_line)] = _line
+								cur_line += 1
+							_data.clear()
+						
+						section = line.substr(1, line.length() - 2)
+						data.keys().append(section)
+						data[section] = {}
+					
+					# Add values to section
+					if "=" in line and section != "":
+						var values = line.split("=")
+						_data.append(values[1])
+				
+				if section != "":
+					var cur_line: int = 0
+					var line_text: String = "Line "
+					for _line in _data:
+						if _data.size() >= 10 and cur_line < 10:
+							line_text = "Line  "
+						else:
+							line_text = "Line "
+						data[section].keys().append(line_text + str(cur_line))
+						data[section][line_text + str(cur_line)] = _line
+						cur_line += 1
+					_data.clear()
