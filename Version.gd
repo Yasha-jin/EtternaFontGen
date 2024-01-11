@@ -5,7 +5,7 @@ extends Node
 const api_endpoint = "https://api.github.com/repos/Yasha-jin/EtternaFontGen/releases"
 
 # Update before creating release
-const version_tag = "1.4"
+const version_tag = "1.5"
 
 # Initialized to the release list page as a fallback in case it fails to 
 # get the link to the latest release for some reason
