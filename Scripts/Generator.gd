@@ -20,14 +20,6 @@ const valid_extensions: PackedStringArray = [
 ]
 
 
-# 10 is probably overkill, however that should be enough to cover all the font.
-# Except wingdings. Fuck wingdings.
-# Maybe in the future I should reorganize the font section to be only 1 line,
-# so that it should never have character inside each other. Tho that mean some
-# character may be cut off, but honestly ? I blame the font maker zzzzz.
-const border_fix: int = 12
-
-
 var current_step: int = 0
 var folder_name: String = ""
 @onready var world: Control = $World
@@ -36,6 +28,7 @@ var folder_name: String = ""
 func start_render(
 	font_path: String,
 	font_size: int,
+	padding_size: int,
 	doubleres: bool,
 	font_name: String = "",
 	fix_alpha_pixels: bool = true
@@ -79,11 +72,11 @@ func start_render(
 	if doubleres:
 		font_size /= 2
 	self.add_child(height_finder)
-	var true_height: int = height_finder.size.y + border_fix
+	var true_height: int = height_finder.size.y + padding_size
 	height_finder.queue_free()
 	
-	var top: int = true_height - (font_size + (border_fix / 2))
-	var border_offset: int = border_fix / 2
+	var top: int = true_height - (font_size + (padding_size / 2))
+	var border_offset: int = padding_size / 2
 	
 	if doubleres:
 		border_offset /= 2
@@ -141,11 +134,9 @@ func start_render(
 				label.reset_size()
 				
 				# add extra border, in case of a character touching the border,
-				# otherwise etterna will do some funny rendering.
-				# Some fonts however do have characters that goes over their size,
-				# and will end up bugged either way. (ex: Wingdings)
-				label.size.x += border_fix
-				label.size.y += border_fix
+				# otherwise some character will be inside other character.
+				label.size.x += padding_size
+				label.size.y += padding_size
 				
 				if label.size.x > label.size.y:
 					label.size.y = label.size.x

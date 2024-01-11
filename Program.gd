@@ -22,6 +22,7 @@ var dropdown_path: Dictionary = {}
 
 var file_path: String = ""
 var font_size: int = 8
+var padding_size: int = 4
 var doubleres: bool = true
 var custom_file_name: String = ""
 var fix_alpha_pixels: bool = true
@@ -32,7 +33,8 @@ var fix_alpha_pixels: bool = true
 @onready var generate_button: Button = %GenerateButton
 @onready var process: Label = %Process
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var spinbox: SpinBox = %FontSize
+@onready var font_size_spinbox: SpinBox = %FontSize
+@onready var padding_size_spinbox: SpinBox = %PaddingSize
 
 
 func _ready() -> void:
@@ -48,8 +50,10 @@ func _ready() -> void:
 	delete_shader_cache()
 	
 	# "fix" for the suffix padding
-	spinbox.get_child(0, true).text = str(spinbox.value) + "px"
-	spinbox.get_child(0, true).connect("focus_exited", Callable(self, "_on_font_size_text_edit_focus_exited"))
+	font_size_spinbox.get_child(0, true).text = str(font_size_spinbox.value) + "px"
+	padding_size_spinbox.get_child(0, true).text = str(padding_size_spinbox.value) + "px"
+	font_size_spinbox.get_child(0, true).connect("focus_exited", Callable(self, "_on_font_size_text_edit_focus_exited"))
+	padding_size_spinbox.get_child(0, true).connect("focus_exited", Callable(self, "_on_padding_size_text_edit_focus_exited"))
 
 
 func update_version_label() -> void:
@@ -88,6 +92,7 @@ func fill_font_dropdown() -> void:
 func fill_font_dropdown_windows(font_names: PackedStringArray) -> PackedStringArray:
 	var path: String = "C:/Windows/Fonts"
 	var default_font: Font = ThemeDB.get_project_theme().default_font
+	var max_width: int = 250
 	for file in DirAccess.get_files_at(path):
 		if file.get_extension() in valid_extensions:
 			var font = FontFile.new()
@@ -95,12 +100,12 @@ func fill_font_dropdown_windows(font_names: PackedStringArray) -> PackedStringAr
 			var font_name = font.get_font_name() + " " + font.get_font_style_name()
 			
 			var font_name_width:int = default_font.get_string_size(font_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
-			while font_name_width >= 320:
+			while font_name_width >= max_width:
 				var left: String = font_name.substr(0, (font_name.length() / 2) - 1)
 				var right: String = font_name.substr(font_name.length() / 2, (font_name.length() / 2) + 1)
 				font_name = left + right
 				font_name_width = default_font.get_string_size(font_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
-				if font_name_width < 320:
+				if font_name_width < max_width:
 					font_name = left + "..." + right
 			
 			font_names.append(font_name)
@@ -114,12 +119,12 @@ func fill_font_dropdown_windows(font_names: PackedStringArray) -> PackedStringAr
 				var font_name = font.get_font_name() + " " + font.get_font_style_name()
 				
 				var font_name_width:int = default_font.get_string_size(font_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
-				while font_name_width >= 320:
+				while font_name_width >= max_width:
 					var left: String = font_name.substr(0, (font_name.length() / 2) - 1)
 					var right: String = font_name.substr(font_name.length() / 2, (font_name.length() / 2) + 1)
 					font_name = left + right
 					font_name_width = default_font.get_string_size(font_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
-					if font_name_width < 320:
+					if font_name_width < max_width:
 						font_name = left + "..." + right
 				
 				font_names.append(font_name)
@@ -158,7 +163,7 @@ func _on_generate_pressed() -> void:
 	generate_button.text = "Working..."
 	generate_button.disabled = true
 	file_path = dropdown_path[selected_font]
-	render.start_render(file_path, font_size, doubleres, custom_file_name, fix_alpha_pixels)
+	render.start_render(file_path, font_size, padding_size, doubleres, custom_file_name, fix_alpha_pixels)
 
 
 func _on_file_path_text_changed(new_text: String) -> void:
@@ -172,8 +177,8 @@ func _on_font_name_text_changed(new_text: String) -> void:
 func _on_font_size_value_changed(value: float) -> void:
 	font_size = int(value)
 	await get_tree().process_frame
-	spinbox.get_child(0, true).release_focus()
-	spinbox.get_child(0, true).text = str(spinbox.value) + "px"
+	font_size_spinbox.get_child(0, true).release_focus()
+	font_size_spinbox.get_child(0, true).text = str(font_size_spinbox.value) + "px"
 
 
 func _on_doubleres_toggled(button_pressed: bool) -> void:
@@ -189,4 +194,15 @@ func _on_fonts_item_selected(index: int) -> void:
 
 
 func _on_font_size_text_edit_focus_exited() -> void:
-	spinbox.get_child(0, true).set_deferred("text", str(spinbox.value) + "px")
+	font_size_spinbox.get_child(0, true).set_deferred("text", str(font_size_spinbox.value) + "px")
+
+
+func _on_padding_size_value_changed(value: float) -> void:
+	padding_size = int(value)
+	await get_tree().process_frame
+	padding_size_spinbox.get_child(0, true).release_focus()
+	padding_size_spinbox.get_child(0, true).text = str(padding_size_spinbox.value) + "px"
+
+
+func _on_padding_size_text_edit_focus_exited() -> void:
+	padding_size_spinbox.get_child(0, true).set_deferred("text", str(padding_size_spinbox.value) + "px")
