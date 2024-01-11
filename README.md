@@ -11,6 +11,10 @@ Get the latest release by clicking => [Here](https://github.com/Yasha-jin/Ettern
 
 A: All the character sets in the generator are based on pre-existing sets, from the fallback theme, and commonly used set from the old generator. However, the more character the I support, the more time etterna will take to load, and refresh textures. As such, I try to keep the amount of characters low, and only have what's essentials. If the character that is missing is from a song from a public pack, i will add them. However, if you want to add character which are used nowhere, you will have to add them manually. You can learn more about that [Here](https://github.com/Yasha-jin/EtternaFontGen/wiki/How-to-add-custom-characters-set). I already added korean and chinese preset, so they can easily be generated. WARNING : As said, the more character you add, the more time etterna will take to load, so only add them if you really want them.
 
+**Q: The font have the wrong alignment**
+
+A: As much as the tool try to have accurate alignment, the result might not be what you want. However it is possible to change that yourself. Learn how to do that [Here](https://github.com/Yasha-jin/EtternaFontGen/wiki/How-to-manually-change-alignment).
+
 **Q: Will you support Linux/MacOS ?**
 
 A: I have no idea how font work on those platform.
