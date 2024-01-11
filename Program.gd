@@ -21,8 +21,8 @@ var dropdown_path: Dictionary = {}
 
 
 var file_path: String = ""
-var font_size: int = 8
-var padding_size: int = 4
+var font_size: int = 24
+var padding_size: int = 8
 var doubleres: bool = true
 var custom_file_name: String = ""
 var fix_alpha_pixels: bool = true
