@@ -25,7 +25,7 @@ const valid_extensions: PackedStringArray = [
 # Maybe in the future I should reorganize the font section to be only 1 line,
 # so that it should never have character inside each other. Tho that mean some
 # character may be cut off, but honestly ? I blame the font maker zzzzz.
-const border_fix: int = 10
+const border_fix: int = 12
 
 
 var current_step: int = 0
@@ -83,14 +83,16 @@ func start_render(
 	height_finder.queue_free()
 	
 	var top: int = true_height - (font_size + (border_fix / 2))
+	var border_offset: int = border_fix / 2
 	
 	if doubleres:
-		top = (true_height / 2) - (font_size + (border_fix / 2))
+		border_offset /= 2
+		top = (true_height / 2) - font_size - border_offset
 	
 	ini_contents.append("[common]\n")
-	ini_contents.append("Baseline=" + str(font_size) + "\n")
+	ini_contents.append("Baseline=" + str(font_size + border_offset) + "\n")
 	ini_contents.append("Top=" + str(top) + "\n")
-	ini_contents.append("LineSpacing=" + str(font_size) + "\n")
+	ini_contents.append("LineSpacing=" + str(font_size + border_offset) + "\n")
 	ini_contents.append("DrawExtraPixelsLeft=0\n")
 	ini_contents.append("DrawExtraPixelsRight=0\n")
 	ini_contents.append("AdvanceExtraPixels=0\n\n")
