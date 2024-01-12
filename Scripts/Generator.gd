@@ -75,17 +75,16 @@ func start_render(
 	var true_height: int = height_finder.size.y + padding_size
 	height_finder.queue_free()
 	
-	var top: int = true_height - (font_size + (padding_size / 2))
-	var border_offset: int = padding_size / 2
-	
 	if doubleres:
-		border_offset /= 2
-		top = (true_height / 2) - font_size - border_offset
+		font_size *= 2
+	var alignments: GenAlignments = await get_alignments(font, font_size, padding_size, true_height, doubleres)
+	if doubleres:
+		font_size /= 2
 	
 	ini_contents.append("[common]\n")
-	ini_contents.append("Baseline=" + str(font_size + border_offset) + "\n")
-	ini_contents.append("Top=" + str(top) + "\n")
-	ini_contents.append("LineSpacing=" + str(font_size + border_offset) + "\n")
+	ini_contents.append("Baseline=" + str(alignments.baseline) + "\n")
+	ini_contents.append("Top=" + str(alignments.top) + "\n")
+	ini_contents.append("LineSpacing=" + str(alignments.baseline) + "\n")
 	ini_contents.append("DrawExtraPixelsLeft=0\n")
 	ini_contents.append("DrawExtraPixelsRight=0\n")
 	ini_contents.append("AdvanceExtraPixels=0\n\n")
@@ -230,3 +229,65 @@ func save_image(filename: String, fix_alpha_pixels: bool) -> void:
 					img.set_pixel(x, y, Color(1,1,1,img.get_pixel(x, y).a))
 	
 	img.save_png("user://" + folder_name + "/" + filename + ".png")
+
+
+func get_alignments(font: FontFile, font_size: int, padding_size: int, true_height: int, doubleres: bool) -> GenAlignments:
+	var alignements = GenAlignments.new()
+	
+	var label = Label.new()
+	label.add_theme_font_override("font", font)
+	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.add_theme_color_override("font_outline_color", Color.WHITE)
+	label.add_theme_constant_override("outline_size", 0)
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	world.add_child(label)
+	
+	label.text = "Z"
+	
+	label.reset_size()
+	
+	label.size.x += padding_size
+	label.size.y += padding_size
+	
+	if label.size.x > label.size.y:
+		label.size.y = label.size.x
+	else:
+		label.size.x = label.size.y
+	
+	label.scale.y = true_height / label.size.y
+	label.scale.x = label.scale.y
+	
+	label.position = Vector2i(0, 0)
+	
+	self.size = Vector2i(true_height, true_height)
+		
+	# Wait 2 frames for the viewport to properly update
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	var img: Image = self.get_viewport().get_texture().get_image()
+	img.convert(Image.FORMAT_RGBA8)
+	
+	for y in img.get_height():
+		for x in img.get_width():
+			if img.get_pixel(x, y).a != 0:
+				if y <= alignements.top:
+					alignements.top = y - 1
+				if alignements.baseline <= y:
+					alignements.baseline = y + 1
+	
+	if doubleres:
+		alignements.top = floor(float(alignements.top) / 2)
+		alignements.baseline = ceil(float(alignements.baseline) / 2)
+	
+	for c in world.get_children():
+		c.queue_free()
+	
+	return alignements
+
+
+class GenAlignments:
+	var top: int = 9999
+	var baseline: int = 0
