@@ -211,11 +211,10 @@ func save_file(contents: PackedStringArray, filename: String) -> void:
 
 func save_image(filename: String, fix_alpha_pixels: bool) -> void:
 	var img: Image = self.get_viewport().get_texture().get_image()
-	img.convert(Image.FORMAT_RGBA8)
 	
 	# Set all pixels to white, as the background being transparent make
 	# alpha pixel have a black background.
-	# check only against symbol due to sex icon being colored sometimes.
+	# only do it manually for symbol2 due to sex symbols.
 	if fix_alpha_pixels:
 		if "symbol2" in filename:
 			for y in img.get_height():
@@ -224,9 +223,7 @@ func save_image(filename: String, fix_alpha_pixels: bool) -> void:
 					if px.r == px.g and px.r == px.b:
 						img.set_pixel(x, y, Color(1,1,1,img.get_pixel(x, y).a))
 		else:
-			for y in img.get_height():
-				for x in img.get_width():
-					img.set_pixel(x, y, Color(1,1,1,img.get_pixel(x, y).a))
+			img.adjust_bcs(100,1,1)
 	
 	img.save_png("user://" + folder_name + "/" + filename + ".png")
 
