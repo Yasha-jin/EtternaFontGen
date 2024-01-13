@@ -3,7 +3,7 @@ class_name Sections
 
 # Each file that will get generated, with all their contents.
 static var data: Dictionary = {
-	"null": {
+	"main": {
 		"Line 0" = "�",
 	},
 	"basic-latin": {
