@@ -6,6 +6,23 @@ https://github.com/Yasha-jin/EtternaFontGen/assets/68703144/20b2314a-4917-4565-b
 ## Download
 Get the latest release by clicking => [Here](https://github.com/Yasha-jin/EtternaFontGen/releases/latest) <=
 
+## Features
+- Generate sheet with almost any fonts installed in your system.
+  - Font which use special symbol such as wingdings, or font that use emoji, are not supported.
+- Custom name
+  - For case like using "Common Normal" or "Common Large" as name for testing faster or better compatibility.
+- Font size
+- Padding
+  - For font that have character too big and looks cutted in game. Increase the padding, and it will prevent character from being cut.
+  - WARNING: Only add padding if necessary, as it have a small cost in size and loading time.
+- Doubleres
+  - For better looking fonts.
+- Stroke
+  - Add stroke support to your fonts.
+  - WARNING: This increase generation time and etterna's loading time quite a lot, only use it for theme that support them, such as Rebirth.
+- Custom sheets
+  - Learn more about it [Here](https://github.com/Yasha-jin/EtternaFontGen/wiki/How-to-add-custom-characters-set).
+
 ## F.A.Q
 **Q: This character is missing**
 
