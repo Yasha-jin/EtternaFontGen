@@ -223,6 +223,18 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_2frkf")
 [node name="Label" type="Label" parent="Interface/VBoxContainer/Control"]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
+text = "Stroke"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stroke" type="CheckButton" parent="Interface/VBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Interface/VBoxContainer/Control"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
 text = "Doubleres"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -309,6 +321,7 @@ offset_bottom = 40.0
 [connection signal="value_changed" from="Interface/VBoxContainer/HBoxContainer6/FontSize" to="." method="_on_font_size_value_changed"]
 [connection signal="text_changed" from="Interface/VBoxContainer/HBoxContainer2/FontName" to="." method="_on_font_name_text_changed"]
 [connection signal="value_changed" from="Interface/VBoxContainer/HBoxContainer2/PaddingSize" to="." method="_on_padding_size_value_changed"]
+[connection signal="toggled" from="Interface/VBoxContainer/Control/Stroke" to="." method="_on_stroke_toggled"]
 [connection signal="toggled" from="Interface/VBoxContainer/Control/Doubleres" to="." method="_on_doubleres_toggled"]
 [connection signal="pressed" from="Interface/HBoxContainer/OutputButton" to="." method="_on_output_button_pressed"]
 [connection signal="pressed" from="Interface/HBoxContainer/GenerateButton" to="." method="_on_generate_pressed"]

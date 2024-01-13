@@ -24,6 +24,7 @@ var file_path: String = ""
 var font_size: int = 24
 var padding_size: int = 8
 var doubleres: bool = true
+var stroke: bool = false
 var custom_file_name: String = ""
 var fix_alpha_pixels: bool = true
 
@@ -163,7 +164,7 @@ func _on_generate_pressed() -> void:
 	generate_button.text = "Working..."
 	generate_button.disabled = true
 	file_path = dropdown_path[selected_font]
-	render.start_render(file_path, font_size, padding_size, doubleres, custom_file_name, fix_alpha_pixels)
+	render.start_render(file_path, font_size, padding_size, doubleres, stroke, custom_file_name, fix_alpha_pixels)
 
 
 func _on_file_path_text_changed(new_text: String) -> void:
@@ -181,8 +182,8 @@ func _on_font_size_value_changed(value: float) -> void:
 	font_size_spinbox.get_child(0, true).text = str(font_size_spinbox.value) + "px"
 
 
-func _on_doubleres_toggled(button_pressed: bool) -> void:
-	doubleres = button_pressed
+func _on_doubleres_toggled(toggled_on: bool) -> void:
+	doubleres = toggled_on
 
 
 func _on_output_button_pressed() -> void:
@@ -206,3 +207,7 @@ func _on_padding_size_value_changed(value: float) -> void:
 
 func _on_padding_size_text_edit_focus_exited() -> void:
 	padding_size_spinbox.get_child(0, true).set_deferred("text", str(padding_size_spinbox.value) + "px")
+
+
+func _on_stroke_toggled(toggled_on: bool) -> void:
+	stroke = toggled_on

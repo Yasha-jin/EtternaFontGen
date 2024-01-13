@@ -30,6 +30,7 @@ func start_render(
 	font_size: int,
 	padding_size: int,
 	doubleres: bool,
+	stroke: bool,
 	font_name: String = "",
 	fix_alpha_pixels: bool = true
 	) -> void:
@@ -183,7 +184,21 @@ func start_render(
 			filename += " (doubleres)"
 		save_image(filename, fix_alpha_pixels)
 		
-		for label in world.get_children():
+		if stroke:
+			for label: Label in world.get_children():
+				label.add_theme_constant_override("outline_size", 10)
+			
+			# Wait 2 frames for the viewport to properly update
+			await get_tree().process_frame
+			await get_tree().process_frame
+			
+			filename = font_name + " [" + section + "-stroke] " + str(max_x) + "x" + str(y)
+			
+			if doubleres:
+				filename += " (doubleres)"
+			save_image(filename, fix_alpha_pixels)
+		
+		for label: Label in world.get_children():
 			label.queue_free()
 	
 	current_step += 1
