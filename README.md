@@ -44,5 +44,5 @@ A: The existing one is pretty old, and is really an hassle to use, from simply m
 [Inter](https://fonts.google.com/specimen/Inter), Licensed under the SIL Open Font License, Version 1.1.
 
 ## Special Thanks
-- [Jole](https://github.com/Jolomann), for designing the UI, wouldn't look good without him 👍
+- [Jolene](https://github.com/joleskins), for designing the UI, wouldn't look good without her 👍
 - Gazelle, for giving me permission to use the EO2 branding
