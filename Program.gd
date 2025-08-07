@@ -95,7 +95,7 @@ func fill_font_dropdown_windows(font_names: PackedStringArray) -> PackedStringAr
 	var default_font: Font = ThemeDB.get_project_theme().default_font
 	var max_width: int = 250
 	for file in DirAccess.get_files_at(path):
-		if file.get_extension() in valid_extensions:
+		if file.get_extension().to_lower() in valid_extensions:
 			var font = FontFile.new()
 			font.load_dynamic_font(path + "/" + file)
 			var font_name = font.get_font_name() + " " + font.get_font_style_name()
@@ -114,7 +114,7 @@ func fill_font_dropdown_windows(font_names: PackedStringArray) -> PackedStringAr
 	if OS.has_environment("USERNAME"):
 		path = "C:/Users/" + OS.get_environment("USERNAME") + "/AppData/Local/Microsoft/Windows/Fonts"
 		for file in DirAccess.get_files_at(path):
-			if file.get_extension() in valid_extensions:
+			if file.get_extension().to_lower() in valid_extensions:
 				var font = FontFile.new()
 				font.load_dynamic_font(path + "/" + file)
 				var font_name = font.get_font_name() + " " + font.get_font_style_name()
